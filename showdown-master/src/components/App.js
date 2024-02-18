@@ -1,23 +1,19 @@
-import logo from '../logo.svg';
 import '../style/App.css';
+import React from 'react';
+import Navbar from './Navbar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Bonjour 🧑‍🌾</h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <div className="container">
+          {/* Le contenu de votre application va ici */}
+          <h1>Bienvenue sur mon site web !</h1>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
