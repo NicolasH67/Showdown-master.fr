@@ -1,4 +1,6 @@
 import { Outlet, RouterProvider, createBrowserRouter, NavLink} from "react-router-dom"
+import './Style/root.css'
+import './Style/app.css'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,7 @@ const router = createBrowserRouter([
 function Root() {
   return <>
   <header>
-    <h1>Showdown-Master</h1>
+    <h1>Showdown<br />Master</h1>
     <nav>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/history">history</NavLink>
@@ -37,7 +39,7 @@ function Root() {
       <NavLink to="/contact">Contact</NavLink>
     </nav>
   </header>
-  <div className="container my-4">
+  <div>
     <Outlet />
   </div>
   </>
