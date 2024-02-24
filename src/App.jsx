@@ -1,6 +1,5 @@
-import { Outlet, RouterProvider, createBrowserRouter, NavLink} from "react-router-dom"
-import './Style/root.css'
-import './Style/app.css'
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import Root from "./Pages/Root"
 
 const router = createBrowserRouter([
   {
@@ -27,23 +26,6 @@ const router = createBrowserRouter([
     ]
   }
 ])
-
-function Root() {
-  return <>
-  <header>
-    <h1>Showdown<br />Master</h1>
-    <nav>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/history">history</NavLink>
-      <NavLink to="/create">Create new Tournament</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
-    </nav>
-  </header>
-  <div>
-    <Outlet />
-  </div>
-  </>
-}
 
 function App() {
   return <RouterProvider router={router} />

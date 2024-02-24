@@ -1,0 +1,39 @@
+/* Style du header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffa6a6;
+    color: #000000;
+    padding: 10px;
+}
+  
+  /* Style du titre */
+.header-h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 44px;
+    margin: 0;
+    text-align: center;
+}
+.header-h2 {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+/* Media query pour les écrans inférieurs ou égaux à 768px */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        border-radius: 25px;
+    }
+
+    /* Réduire la taille du titre */
+    .header-h1 {
+      font-size: 32px;
+    }
+    .header-h2 {
+      display: none;
+    }
+  }
+  
