@@ -14,6 +14,7 @@ footer {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     margin: 0;
+    text-align: center;
   }
   
   /* Media query pour les écrans inférieurs ou égaux à 768px */

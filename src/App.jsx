@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Root from "./Pages/Root"
 import Home from "./Pages/Home"
+import History from "./Pages/History"
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
       }, 
       {
         path: 'history', 
-        element: <div className="history">c'est l'historique des tournois</div>
+        element: <History />
       }, 
       {
         path: 'create', 
