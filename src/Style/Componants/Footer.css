@@ -1,0 +1,26 @@
+/* Style du footer */
+footer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffa6a6;
+    color: #000000;
+    padding: 10px;
+  }
+  
+  /* Style du paragraphe du footer */
+  footer p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  /* Media query pour les écrans inférieurs ou égaux à 768px */
+  @media screen and (max-width: 768px) {
+    /* Réduire la taille du paragraphe du footer */
+    footer p {
+      font-size: 16px;
+    }
+  }
+  
