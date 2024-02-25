@@ -1,0 +1,15 @@
+/* Style du conteneur des tournois */
+.home {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .home {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,47 @@
+/* Style du conteneur des tournois */
+.tournament {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffe1e1;
+    border: 1px solid #7300ff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #7300ff;
+    margin: 10px;
+    padding: 20px;
+    width: calc(20% - 10px);
+    height: 300px;
+  }
+  
+  /* Style du titre du tournoi */
+  .tournament-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #7300ff;
+    margin: 0;
+    text-align: center;
+  }
+  
+  /* Style des informations du tournoi */
+  .tournament-day {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #333333;
+    margin: 5px;
+    font-weight: bolder;
+  }
+
+  .tournament-p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #333333;
+    margin: 5px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .tournament {
+        width: 85%;
+    }
+  }
