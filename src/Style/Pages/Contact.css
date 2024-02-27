@@ -1,0 +1,10 @@
+.Contact {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.ContactTitle {
+    text-align: center;
+}

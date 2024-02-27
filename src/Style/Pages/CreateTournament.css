@@ -1,0 +1,14 @@
+.CreateTournament {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateTournamentTitle {
+    text-align: center;
+}
+
+.CreateTournamentInfo { 
+    text-align: center;
+}

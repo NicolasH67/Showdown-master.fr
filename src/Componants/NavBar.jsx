@@ -7,7 +7,7 @@ function NavBar() {
     <nav className='Header-Navbar'>
       <NavLink to="/" className='Header-Navbar-link'>Home</NavLink>
       <NavLink to="/history" className='Header-Navbar-link'>History</NavLink>
-      <NavLink to="/create" className='Header-Navbar-link'>Create new Tournament</NavLink>
+      <NavLink to="/tournament/create" className='Header-Navbar-link'>Create new Tournament</NavLink>
       <NavLink to="/contact" className='Header-Navbar-link'>Contact</NavLink>
     </nav>
   </>

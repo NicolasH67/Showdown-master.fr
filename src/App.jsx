@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Root from "./Pages/Root"
 import Home from "./Pages/Home"
 import History from "./Pages/History"
+import CreateTournament from "./Pages/CreateTournament"
+import ContactForm from "./Pages/Contact"
 
 const router = createBrowserRouter([
   {
@@ -16,14 +18,19 @@ const router = createBrowserRouter([
       {
         path: 'history', 
         element: <History />
-      }, 
+      },
       {
-        path: 'create', 
-        element: <div className="create">Créer une nouveau tournoi</div>
-      }, 
+        path: 'tournament',
+        children: [
+          {
+            path: 'create', 
+            element: <CreateTournament />
+          }
+        ]
+      },
       {
         path: 'contact', 
-        element: <div className="contact">Formulaire de contact</div>
+        element: <ContactForm />
       }
     ]
   }
