@@ -1,0 +1,42 @@
+.Tournament-Navbar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+  /* Style des liens de navigation */
+.Tournament-Navbar-link {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #000000;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bolder;
+    transition-property: all;
+    transition-duration: 0.7s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+}
+  
+  /* Style des liens de navigation actifs */
+.Tournament-Navbar-link.active {
+    background-color: #7300ff;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  /* Réduire l'espace entre les liens de navigation */
+  .Tournament-Navbar {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  /* Réduire la taille et le poids des liens de navigation */
+  .Tournament-Navbar-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}

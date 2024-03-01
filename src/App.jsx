@@ -4,6 +4,9 @@ import Home from "./Pages/Home"
 import History from "./Pages/History"
 import CreateTournament from "./Pages/CreateTournament"
 import ContactForm from "./Pages/Contact"
+import Tournament from "./Pages/Tournament"
+import Detail from "./Componants/Detail"
+import PlayerList from "./Pages/PlayerList"
 
 const router = createBrowserRouter([
   {
@@ -20,11 +23,20 @@ const router = createBrowserRouter([
         element: <History />
       },
       {
+        path: 'tournament/create', 
+        element: <CreateTournament />
+      },
+      {
         path: 'tournament',
-        children: [
+        element: <Tournament />,
+        children: [ 
           {
-            path: 'create', 
-            element: <CreateTournament />
+            path: ':id',
+            element: <Detail />
+          }, 
+          {
+            path: ':id/player', 
+            element: <PlayerList />
           }
         ]
       },

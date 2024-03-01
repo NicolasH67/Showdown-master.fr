@@ -1,0 +1,4 @@
+.tournamentPage {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,19 @@
+/* Style du header */
+aside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffa6a6;
+    color: #000000;
+    padding: 10px;
+    width: 20%;
+}
+
+/* Media query pour les écrans inférieurs ou égaux à 768px */
+@media screen and (max-width: 768px) {
+    aside {
+        border-radius: 25px;
+        width: 100%;
+    }
+  }
+  
