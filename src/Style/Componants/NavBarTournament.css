@@ -1,7 +1,13 @@
 .Tournament-Navbar {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 200px; /* largeur fixe */
+    height: 400px;
+    position: fixed; /* position fixe */
+    top: 150px; /* bord supérieur */
+    bottom: 0;
 }
   
   /* Style des liens de navigation */
@@ -31,6 +37,9 @@
   .Tournament-Navbar {
       flex-direction: column;
       gap: 20px;
+      position: absolute;
+      top: auto;
+      bottom: auto;
   }
 
   /* Réduire la taille et le poids des liens de navigation */

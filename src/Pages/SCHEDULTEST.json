@@ -1,0 +1,722 @@
+[
+    {
+        "key": 1,
+        "time": "08:30",
+        "table": 1,
+        "groups": "M | A",
+        "playerOne": "Nicolas HECKER",
+        "playerTwo": "Madjid GUITOUNE",
+        "result": [
+            {
+                "set1": "11-3",
+                "set2": "11-5",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Nathalie REIX"
+    },
+    {
+        "key": 2,
+        "time": "09:00",
+        "table": 2,
+        "groups": "F | B",
+        "playerOne": "Sophie DUBOIS",
+        "playerTwo": "Julie LEROY",
+        "result": [
+            {
+                "set1": "7-11",
+                "set2": "11-9",
+                "set3": "8-11",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Jean DUPONT"
+    },
+    {
+        "key": 3,
+        "time": "09:30",
+        "table": 3,
+        "groups": "M | C",
+        "playerOne": "Antoine MARTIN",
+        "playerTwo": "Pierre DURAND",
+        "result": [
+            {
+                "set1": "11-6",
+                "set2": "10-12",
+                "set3": "11-9",
+                "set4": "9-11",
+                "set5": "12-10"
+            }
+        ],
+        "referee": "Marie DUBOIS"
+    },
+    {
+        "key": 4,
+        "time": "10:00",
+        "table": 4,
+        "groups": "F | A",
+        "playerOne": "Emilie ROBERT",
+        "playerTwo": "Marine DUPONT",
+        "result": [
+            {
+                "set1": "11-8",
+                "set2": "7-11",
+                "set3": "11-9",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Lucas MARTIN"
+    },
+    {
+        "key": 5,
+        "time": "10:30",
+        "table": 5,
+        "groups": "M | B",
+        "playerOne": "Alexandre PETIT",
+        "playerTwo": "Thomas ROUSSEAU",
+        "result": [
+            {
+                "set1": "11-4",
+                "set2": "11-6",
+                "set3": "11-9",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire DUPUIS"
+    },
+    {
+        "key": 6,
+        "time": "11:00",
+        "table": 6,
+        "groups": "F | C",
+        "playerOne": "Laura MARTIN",
+        "playerTwo": "Camille ROBIN",
+        "result": [
+            {
+                "set1": "9-11",
+                "set2": "11-8",
+                "set3": "11-6",
+                "set4": "8-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Antoine DUBOIS"
+    },
+    {
+        "key": 7,
+        "time": "11:30",
+        "table": 7,
+        "groups": "M | A",
+        "playerOne": "Madjid GUITOUNE",
+        "playerTwo": "Nicolas HECKER",
+        "result": [
+            {
+                "set1": "5-11",
+                "set2": "3-11",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Sophie MARTIN"
+    },
+    {
+        "key": 8,
+        "time": "12:00",
+        "table": 8,
+        "groups": "F | B",
+        "playerOne": "Julie LEROY",
+        "playerTwo": "Sophie DUBOIS",
+        "result": [
+            {
+                "set1": "11-7",
+                "set2": "9-11",
+                "set3": "11-8",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Pierre DUPONT"
+    },
+    {
+        "key": 9,
+        "time": "12:30",
+        "table": 9,
+        "groups": "M | C",
+        "playerOne": "Pierre DURAND",
+        "playerTwo": "Antoine MARTIN",
+        "result": [
+            {
+                "set1": "6-11",
+                "set2": "12-10",
+                "set3": "9-11",
+                "set4": "11-9",
+                "set5": "10-12"
+            }
+        ],
+        "referee": "Marine ROBERT"
+    },
+    {
+        "key": 10,
+        "time": "13:00",
+        "table": 10,
+        "groups": "F | A",
+        "playerOne": "Marine DUPONT",
+        "playerTwo": "Emilie ROBERT",
+        "result": [
+            {
+                "set1": "8-11",
+                "set2": "11-7",
+                "set3": "9-11",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Lucas DURAND"
+    },
+    {
+        "key": 11,
+        "time": "13:30",
+        "table": 11,
+        "groups": "M | B",
+        "playerOne": "Thomas ROUSSEAU",
+        "playerTwo": "Alexandre PETIT",
+        "result": [
+            {
+                "set1": "4-11",
+                "set2": "6-11",
+                "set3": "9-11",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire ROBIN"
+    },
+    {
+        "key": 12,
+        "time": "14:00",
+        "table": 12,
+        "groups": "F | C",
+        "playerOne": "Camille ROBIN",
+        "playerTwo": "Laura MARTIN",
+        "result": [
+            {
+                "set1": "11-9",
+                "set2": "8-11",
+                "set3": "6-11",
+                "set4": "11-8",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Antoine GUITOUNE"
+    },
+    {
+        "key": 13,
+        "time": "14:30",
+        "table": 13,
+        "groups": "M | A",
+        "playerOne": "Nicolas HECKER",
+        "playerTwo": "Madjid GUITOUNE",
+        "result": [
+            {
+                "set1": "11-3",
+                "set2": "11-5",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Nathalie REIX"
+    },
+    {
+        "key": 14,
+        "time": "15:00",
+        "table": 14,
+        "groups": "F | B",
+        "playerOne": "Sophie DUBOIS",
+        "playerTwo": "Julie LEROY",
+        "result": [
+            {
+                "set1": "7-11",
+                "set2": "11-9",
+                "set3": "8-11",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Jean DUPONT"
+    },
+    {
+        "key": 15,
+        "time": "15:30",
+        "table": 15,
+        "groups": "M | C",
+        "playerOne": "Antoine MARTIN",
+        "playerTwo": "Pierre DURAND",
+        "result": [
+            {
+                "set1": "11-6",
+                "set2": "10-12",
+                "set3": "11-9",
+                "set4": "9-11",
+                "set5": "12-10"
+            }
+        ],
+        "referee": "Marie DUBOIS"
+    },
+    {
+        "key": 16,
+        "time": "16:00",
+        "table": 16,
+        "groups": "F | A",
+        "playerOne": "Emilie ROBERT",
+        "playerTwo": "Marine DUPONT",
+        "result": [
+            {
+                "set1": "11-8",
+                "set2": "7-11",
+                "set3": "11-9",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Lucas MARTIN"
+    },
+    {
+        "key": 17,
+        "time": "16:30",
+        "table": 17,
+        "groups": "M | B",
+        "playerOne": "Alexandre PETIT",
+        "playerTwo": "Thomas ROUSSEAU",
+        "result": [
+            {
+                "set1": "11-4",
+                "set2": "11-6",
+                "set3": "11-9",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire DUPUIS"
+    },
+    {
+        "key": 18,
+        "time": "17:00",
+        "table": 18,
+        "groups": "F | C",
+        "playerOne": "Laura MARTIN",
+        "playerTwo": "Camille ROBIN",
+        "result": [
+            {
+                "set1": "9-11",
+                "set2": "11-8",
+                "set3": "11-6",
+                "set4": "8-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Antoine DUBOIS"
+    },
+    {
+        "key": 19,
+        "time": "17:30",
+        "table": 19,
+        "groups": "M | A",
+        "playerOne": "Madjid GUITOUNE",
+        "playerTwo": "Nicolas HECKER",
+        "result": [
+            {
+                "set1": "5-11",
+                "set2": "3-11",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Sophie MARTIN"
+    },
+    {
+        "key": 20,
+        "time": "18:00",
+        "table": 20,
+        "groups": "F | B",
+        "playerOne": "Julie LEROY",
+        "playerTwo": "Sophie DUBOIS",
+        "result": [
+            {
+                "set1": "11-7",
+                "set2": "9-11",
+                "set3": "11-8",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Pierre DUPONT"
+    },
+    {
+        "key": 21,
+        "time": "18:30",
+        "table": 21,
+        "groups": "M | C",
+        "playerOne": "Pierre DURAND",
+        "playerTwo": "Antoine MARTIN",
+        "result": [
+            {
+                "set1": "6-11",
+                "set2": "12-10",
+                "set3": "9-11",
+                "set4": "11-9",
+                "set5": "10-12"
+            }
+        ],
+        "referee": "Marine ROBERT"
+    },
+    {
+        "key": 22,
+        "time": "19:00",
+        "table": 22,
+        "groups": "F | A",
+        "playerOne": "Marine DUPONT",
+        "playerTwo": "Emilie ROBERT",
+        "result": [
+            {
+                "set1": "8-11",
+                "set2": "11-7",
+                "set3": "9-11",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Lucas DURAND"
+    },
+    {
+        "key": 23,
+        "time": "19:30",
+        "table": 23,
+        "groups": "M | B",
+        "playerOne": "Thomas ROUSSEAU",
+        "playerTwo": "Alexandre PETIT",
+        "result": [
+            {
+                "set1": "4-11",
+                "set2": "6-11",
+                "set3": "9-11",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire ROBIN"
+    },
+    {
+        "key": 24,
+        "time": "20:00",
+        "table": 24,
+        "groups": "F | C",
+        "playerOne": "Camille ROBIN",
+        "playerTwo": "Laura MARTIN",
+        "result": [
+            {
+                "set1": "11-9",
+                "set2": "8-11",
+                "set3": "6-11",
+                "set4": "11-8",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Antoine GUITOUNE"
+    },
+    {
+        "key": 25,
+        "time": "20:30",
+        "table": 25,
+        "groups": "M | A",
+        "playerOne": "Nicolas HECKER",
+        "playerTwo": "Madjid GUITOUNE",
+        "result": [
+            {
+                "set1": "11-3",
+                "set2": "11-5",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Nathalie REIX"
+    },
+    {
+        "key": 26,
+        "time": "21:00",
+        "table": 26,
+        "groups": "F | B",
+        "playerOne": "Sophie DUBOIS",
+        "playerTwo": "Julie LEROY",
+        "result": [
+            {
+                "set1": "7-11",
+                "set2": "11-9",
+                "set3": "8-11",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Jean DUPONT"
+    },
+    {
+        "key": 27,
+        "time": "21:30",
+        "table": 27,
+        "groups": "M | C",
+        "playerOne": "Antoine MARTIN",
+        "playerTwo": "Pierre DURAND",
+        "result": [
+            {
+                "set1": "11-6",
+                "set2": "10-12",
+                "set3": "11-9",
+                "set4": "9-11",
+                "set5": "12-10"
+            }
+        ],
+        "referee": "Marie DUBOIS"
+    },
+    {
+        "key": 28,
+        "time": "22:00",
+        "table": 28,
+        "groups": "F | A",
+        "playerOne": "Emilie ROBERT",
+        "playerTwo": "Marine DUPONT",
+        "result": [
+            {
+                "set1": "11-8",
+                "set2": "7-11",
+                "set3": "11-9",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Lucas MARTIN"
+    },
+    {
+        "key": 29,
+        "time": "22:30",
+        "table": 29,
+        "groups": "M | B",
+        "playerOne": "Alexandre PETIT",
+        "playerTwo": "Thomas ROUSSEAU",
+        "result": [
+            {
+                "set1": "11-4",
+                "set2": "11-6",
+                "set3": "11-9",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire DUPUIS"
+    },
+    {
+        "key": 30,
+        "time": "23:00",
+        "table": 30,
+        "groups": "F | C",
+        "playerOne": "Laura MARTIN",
+        "playerTwo": "Camille ROBIN",
+        "result": [
+            {
+                "set1": "9-11",
+                "set2": "11-8",
+                "set3": "11-6",
+                "set4": "8-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Antoine DUBOIS"
+    },
+    {
+        "key": 31,
+        "time": "23:30",
+        "table": 31,
+        "groups": "M | A",
+        "playerOne": "Madjid GUITOUNE",
+        "playerTwo": "Nicolas HECKER",
+        "result": [
+            {
+                "set1": "5-11",
+                "set2": "3-11",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Sophie MARTIN"
+    },
+    {
+        "key": 32,
+        "time": "00:00",
+        "table": 32,
+        "groups": "F | B",
+        "playerOne": "Julie LEROY",
+        "playerTwo": "Sophie DUBOIS",
+        "result": [
+            {
+                "set1": "11-7",
+                "set2": "9-11",
+                "set3": "11-8",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Pierre DUPONT"
+    },
+    {
+        "key": 33,
+        "time": "00:30",
+        "table": 33,
+        "groups": "M | C",
+        "playerOne": "Pierre DURAND",
+        "playerTwo": "Antoine MARTIN",
+        "result": [
+            {
+                "set1": "6-11",
+                "set2": "12-10",
+                "set3": "9-11",
+                "set4": "11-9",
+                "set5": "10-12"
+            }
+        ],
+        "referee": "Marine ROBERT"
+    },
+    {
+        "key": 34,
+        "time": "01:00",
+        "table": 34,
+        "groups": "F | A",
+        "playerOne": "Marine DUPONT",
+        "playerTwo": "Emilie ROBERT",
+        "result": [
+            {
+                "set1": "8-11",
+                "set2": "11-7",
+                "set3": "9-11",
+                "set4": "6-11",
+                "set5": "11-9"
+            }
+        ],
+        "referee": "Lucas DURAND"
+    },
+    {
+        "key": 35,
+        "time": "01:30",
+        "table": 35,
+        "groups": "M | B",
+        "playerOne": "Thomas ROUSSEAU",
+        "playerTwo": "Alexandre PETIT",
+        "result": [
+            {
+                "set1": "4-11",
+                "set2": "6-11",
+                "set3": "9-11",
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Claire ROBIN"
+    },
+    {
+        "key": 36,
+        "time": "02:00",
+        "table": 36,
+        "groups": "F | C",
+        "playerOne": "Camille ROBIN",
+        "playerTwo": "Laura MARTIN",
+        "result": [
+            {
+                "set1": "11-9",
+                "set2": "8-11",
+                "set3": "6-11",
+                "set4": "11-8",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Antoine GUITOUNE"
+    },
+    {
+        "key": 37,
+        "time": "02:30",
+        "table": 37,
+        "groups": "M | A",
+        "playerOne": "Nicolas HECKER",
+        "playerTwo": "Madjid GUITOUNE",
+        "result": [
+            {
+                "set1": "11-3",
+                "set2": "11-5",
+                "set3": null,
+                "set4": null,
+                "set5": null
+            }
+        ],
+        "referee": "Nathalie REIX"
+    },
+    {
+        "key": 38,
+        "time": "03:00",
+        "table": 38,
+        "groups": "F | B",
+        "playerOne": "Sophie DUBOIS",
+        "playerTwo": "Julie LEROY",
+        "result": [
+            {
+                "set1": "7-11",
+                "set2": "11-9",
+                "set3": "8-11",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Jean DUPONT"
+    },
+    {
+        "key": 39,
+        "time": "03:30",
+        "table": 39,
+        "groups": "M | C",
+        "playerOne": "Antoine MARTIN",
+        "playerTwo": "Pierre DURAND",
+        "result": [
+            {
+                "set1": "11-6",
+                "set2": "10-12",
+                "set3": "11-9",
+                "set4": "9-11",
+                "set5": "12-10"
+            }
+        ],
+        "referee": "Marie DUBOIS"
+    },
+    {
+        "key": 40,
+        "time": "04:00",
+        "table": 40,
+        "groups": "F | A",
+        "playerOne": "Emilie ROBERT",
+        "playerTwo": "Marine DUPONT",
+        "result": [
+            {
+                "set1": "11-8",
+                "set2": "7-11",
+                "set3": "11-9",
+                "set4": "11-6",
+                "set5": "9-11"
+            }
+        ],
+        "referee": "Lucas MARTIN"
+    }
+]

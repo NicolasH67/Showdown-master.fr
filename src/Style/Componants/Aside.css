@@ -7,13 +7,17 @@ aside {
     color: #000000;
     padding: 10px;
     width: 20%;
+    min-height: 400px;
 }
 
 /* Media query pour les écrans inférieurs ou égaux à 768px */
 @media screen and (max-width: 768px) {
     aside {
         border-radius: 25px;
+        width: 100%; 
+        min-width: none;
         width: 100%;
+        flex-direction: column;
     }
   }
   

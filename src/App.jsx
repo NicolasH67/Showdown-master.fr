@@ -7,6 +7,7 @@ import ContactForm from "./Pages/Contact"
 import Tournament from "./Pages/Tournament"
 import Detail from "./Componants/Detail"
 import PlayerList from "./Pages/PlayerList"
+import Schedule from "./Pages/Schedule"
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
           {
             path: ':id/player', 
             element: <PlayerList />
+          }, 
+          {
+            path: ':id/groups',
+            element: <div>comming soon !!!</div>
+          }, 
+          {
+            path: ':id/schedule',
+            element: <Schedule />
           }
         ]
       },

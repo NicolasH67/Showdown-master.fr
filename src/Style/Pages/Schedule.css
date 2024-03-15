@@ -1,0 +1,44 @@
+.containerTable {
+    display: block;
+    margin: 40px auto 20px 60px;
+  }
+  table {
+    width: 800px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  th,
+  td {
+    padding: 15px;
+    background-color: #ffc0c0;
+    color: #000;
+    text-align: center;
+  }
+  th {
+    text-align: center;
+    color: #FFF;
+  }
+  thead th {
+    background-color: #7300ff;
+  }
+  tbody td {
+    position: relative;
+  }
+
+  @media only screen and (max-width: 600px) {
+    table {
+        width: auto;
+    }
+
+    .containerTable {
+        display: block;
+        margin: 20px auto;
+        overflow-x: auto; 
+    }
+
+    th,
+    td {
+        padding: 3px;
+    }
+}

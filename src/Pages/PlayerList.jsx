@@ -1,31 +1,65 @@
-import '../Style/Pages/PlayersTable.css'
-import Tbody from "../Componants/Tbody";
+import React from "react";
+import { useTable } from "react-table";
+import playerData from "./PLAYERLIST.json"
 
-const PLAYERTEST = [
-    { key: 1, name: "HECKER Nicolas", city: "Strasbourg" },
-    { key: 2, name: "GUITOUNE Madjid", city: "Paris" },
-    { key: 3, name: "BERTHIAU Didier", city: "Rouen" },
-    { key: 4, name: "SAHRAHOUI Muhammed", city: "Caen" },
-    { key: 5, name: "MILARET Yohann", city: "Toulouse" },
-    { key: 6, name: "BLANC Mathias", city: "Toulouse" }
-];
+function PlayerTable() {
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Key",
+        accessor: "key",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+      {
+        Header: "City",
+        accessor: "city",
+      },
+    ],
+    []
+  );
 
-function PlayerList() {
-    return <div className="table-container">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Country/City</th>
-              </tr>
-            </thead>
-            <tbody>
-                {PLAYERTEST.map((player) => (
-                    <Tbody key={player.key} name={player.name} city={player.city} />
-                ))}
-            </tbody>
-          </table>
-        </div>
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data: playerData });
+
+  return <>
+    <div className="containerTable">
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+    </div>
+  </>
 }
 
-export default PlayerList;
+function App() {
+  return (
+    <div>
+      <h1>Player List</h1>
+      <PlayerTable />
+    </div>
+  );
+}
+
+export default App;
