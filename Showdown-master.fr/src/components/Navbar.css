@@ -1,0 +1,83 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: #2c3e50;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-family: 'Arial', sans-serif;
+  margin-left: -10px;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 10px;
+}
+
+.navbar li a {
+  color: #ecf0f1;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+}
+
+.navbar li a:hover {
+  background-color: #34495e;
+  color: #ecdbff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.navbar li a:active {
+  background-color: #1abc9c;
+  color: white;
+}
+
+/* Pour un effet sur la page active */
+.navbar li a.active {
+  background-color: #1abc9c;
+  color: white;
+}
+
+/* Media Queries pour les écrans plus petits */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px; /* Réduire le rembourrage pour les petits écrans */
+  }
+
+  .navbar ul {
+    flex-direction: column; /* Changer la direction en colonne */
+    align-items: flex-start; /* Aligner à gauche */
+  }
+
+  .navbar li {
+    margin: 5px 0; /* Espacement vertical entre les éléments */
+    width: 100%; /* Chaque lien prend la largeur complète */
+  }
+
+  .navbar li a {
+    text-align: left; /* Alignement du texte à gauche */
+    padding: 10px 15px; /* Padding ajusté */
+    font-size: 14px; /* Réduire la taille de la police pour les petits écrans */
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar li a {
+    font-size: 20px; /* Réduit la taille de la police sur les très petits écrans */
+  }
+}

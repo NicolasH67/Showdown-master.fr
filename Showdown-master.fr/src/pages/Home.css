@@ -1,0 +1,114 @@
+/* Styles de base pour le tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Styles de la modale */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond gris */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Assurez-vous qu'il est au-dessus des autres éléments */
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+}
+
+.modal h2 {
+  margin-bottom: 10px;
+}
+
+.modal input {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+}
+
+.modal button {
+  margin: 5px;
+  padding: 8px 16px;
+}
+
+/* Media Queries pour les écrans plus petits */
+@media (max-width: 768px) {
+  th, td {
+    padding: 10px; /* Augmente le rembourrage pour les petits écrans */
+    font-size: 16px; /* Augmente la taille de la police */
+  }
+
+  .modal {
+    width: 90%; /* Modale plus large sur les petits écrans */
+    padding: 15px; /* Réduit le rembourrage de la modale */
+  }
+
+  .modal h2 {
+    font-size: 20px; /* Taille de police pour le titre de la modale */
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    margin-top: 200px;
+  }
+  
+  th, td {
+    font-size: 18px; /* Augmente la taille de la police */
+    padding: 12px; /* Augmente le rembourrage pour le confort de lecture */
+  }
+
+  .modal {
+    width: 95%; /* Modale presque pleine largeur sur les très petits écrans */
+  }
+
+  .modal h2 {
+    font-size: 18px; /* Réduit la taille de police pour le titre de la modale */
+  }
+
+  .modal input {
+    padding: 10px; /* Réduit le rembourrage de l'input */
+  }
+
+  .modal button {
+    padding: 10px 20px; /* Ajuste le rembourrage du bouton */
+  }
+}
