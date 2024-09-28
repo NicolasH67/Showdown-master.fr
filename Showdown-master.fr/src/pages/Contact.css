@@ -1,0 +1,115 @@
+/* Styles de base */
+.contact-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 100px; /* Espace pour éviter que le titre soit caché */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form div {
+    margin-bottom: 15px;
+  }
+  
+  .contact-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .contact-form textarea {
+    resize: vertical;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .success {
+    color: green;
+  }
+  
+  /* Media queries pour les mobiles */
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 10px;
+      padding-top: 180px; /* Ajuste pour les petits écrans */
+      max-width: 100%;
+    }
+  
+    .contact-form input,
+    .contact-form textarea {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+    }
+  
+    h1 {
+      font-size: 24px;
+    }
+  }
+  
+  /* Media queries pour les très petits écrans (moins de 480px) */
+  @media (max-width: 480px) {
+    .contact-container {
+      padding: 8px;
+      padding-top: 60px; /* Réduit davantage pour les très petits écrans */
+    }
+  
+    .contact-form input,
+    .contact-form textarea {
+      padding: 6px;
+      font-size: 12px;
+    }
+  
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  }
+  
+  /* Ajoute un espace supplémentaire en fonction de la hauteur de la navbar pour petits écrans */
+  @media (max-width: 480px) {
+    .contact-container {
+      padding-top: calc(60px + 20px); /* Espace ajusté pour éviter la superposition avec la navbar */
+    }
+  }
+  

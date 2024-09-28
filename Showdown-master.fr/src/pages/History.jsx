@@ -51,16 +51,21 @@ const History = () => {
       setIsModalOpen(true);
     } else {
       // Naviguer vers la page de détails directement si pas de mot de passe
-      window.location.href = `/tournament/${tournament.id}`;
+      window.location.href = `/tournament/${tournament.id}/players`;
     }
   };
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
+    console.log("Mot de passe soumis : ", password); // Vérifie l'entrée
+  
     if (password === selectedTournament.user_password) {
-      // Si le mot de passe est correct, naviguer vers la page de détails
-      window.location.href = `/tournament/${selectedTournament.id}`;
+      // Si le mot de passe est correct, naviguer vers la page des joueurs
+      console.log("Mot de passe correct !");
+      handleModalClose(); // Fermer la modale avant de rediriger
+      window.location.href = `/tournament/${selectedTournament.id}/players`;
     } else {
+      console.log("Mot de passe incorrect");
       alert('Mot de passe incorrect');
     }
   };
