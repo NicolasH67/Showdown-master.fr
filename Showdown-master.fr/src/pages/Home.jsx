@@ -24,9 +24,10 @@ const UpcomingTournaments = () => {
         console.log('Données récupérées :', data); // Vérifie ici que les données sont récupérées correctement
 
         const today = new Date();
+        today.setHours(0, 0, 0, 0); // Réinitialise l'heure à minuit pour éviter des problèmes avec les heures
         const filteredTournaments = data
-          .filter(tournament => new Date(tournament.startday) > today) // Garder uniquement les tournois à venir
-          .sort((a, b) => new Date(a.startday) - new Date(b.startday)); // Trier par date de début (du plus ancien au plus récent)
+          .filter(tournament => new Date(tournament.endday) >= today) // Garder les tournois qui se terminent aujourd'hui ou plus tard
+          .sort((a, b) => new Date(a.endday) - new Date(b.endday)); // Trier par date de fin (du plus ancien au plus récent)
 
         setTournaments(filteredTournaments);
       } catch (error) {

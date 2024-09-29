@@ -7,6 +7,7 @@ import CreateTournament from './Pages/CreateTournament';
 import Contact from './Pages/Contact';
 import Navbar from './components/Navbar';
 import TournamentDetails from './Pages/TournamentDetails'
+import Players from './Pages/Players'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/create-tournament" element={<CreateTournament />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tournament/:id" element={<TournamentDetails />} />
+        <Route path="/tournament/:id/players" element= {<Players />} />
       </Routes>
     </>
   );

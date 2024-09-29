@@ -24,9 +24,11 @@ const History = () => {
         console.log('Données récupérées :', data); // Vérifie ici que les données sont récupérées correctement
 
         const today = new Date();
+        today.setHours(0, 0, 0, 0); // Réinitialise l'heure à minuit pour une comparaison correcte
+
         const filteredTournaments = data
-          .filter(tournament => new Date(tournament.endday) < today) // Garder uniquement les tournois terminés
-          .sort((a, b) => new Date(b.enday) - new Date(a.endday)); // Trier par date de fin (du plus récent au plus ancien)
+          .filter(tournament => new Date(tournament.endday) <= today) // Inclure uniquement les tournois terminés aujourd'hui ou avant
+          .sort((a, b) => new Date(b.endday) - new Date(a.endday)); // Trier par date de fin (du plus récent au plus ancien)
 
         setTournaments(filteredTournaments);
       } catch (error) {

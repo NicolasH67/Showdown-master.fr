@@ -1,0 +1,42 @@
+/* Styles de base pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  h2 {
+    margin-top: 20px;
+  }
+  
+  /* Media query pour mobile */
+  @media (max-width: 768px) {
+    table, th, td {
+      display: block;
+      width: 100%;
+    }
+  
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+  
+    td {
+      padding: 10px;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      text-align: right;
+    }
+  
+    td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+  }
+  
