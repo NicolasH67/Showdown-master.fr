@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import TournamentDetails from './pages/TournamentDetails'
 import Players from './pages/Players'
 import Groups from './pages/Groups'
+import Schedule from './pages/Schedule'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/tournament/:id" element={<TournamentDetails />} />
         <Route path="/tournament/:id/players" element= {<Players />} />
         <Route path="/tournament/:id/groups" element= {<Groups />} />
+        <Route path="/tournament/:id/schedule" element= {<Schedule />} />
       </Routes>
     </>
   );
