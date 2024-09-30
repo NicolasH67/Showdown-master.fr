@@ -1,0 +1,102 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Conteneur principal */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Centre tout le contenu dans la page */
+  }
+  
+  /* Boutons */
+  .round-selector {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Centre les boutons horizontalement */
+    gap: 10px; /* Espace entre les boutons */
+  }
+  
+  .round-selector button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .round-selector button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Titres des sections */
+  h1, h2, h3 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Section des groupes */
+  .group-section {
+    margin-bottom: 40px;
+  }
+  
+  .group-section h2 {
+    margin-bottom: 10px;
+    color: #0056b3;
+  }
+  
+  /* Tableaux */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  tfoot {
+    background-color: #f1f1f1;
+  }
+  
+  /* Texte vide */
+  .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+  }
+  
+  /* Loader */
+  .loader {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+  }
+  
