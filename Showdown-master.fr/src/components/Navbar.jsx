@@ -57,7 +57,6 @@ const Navbar = () => {
       setIsAdmin(true);
 
       console.log("password is correct")
-      // Rediriger en fonction de la page actuelle
       if (location.pathname.includes('players')) {
         navigate(`/tournament/${tournamentId}/admin/players`);
       } else if (location.pathname.includes('groups')) {

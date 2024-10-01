@@ -24,9 +24,9 @@ const Schedule = () => {
                         match_date,
                         match_time, 
                         table_number,
-                        referee:referee_id(firstname, lastname)  // Inclure les informations de l'arbitre
+                        referee:referee_id(firstname, lastname)
                     `)
-                    .eq('tournament_id', id); // Filtrer par tournamentId
+                    .eq('tournament_id', id);
 
                 if (error) {
                     throw error;

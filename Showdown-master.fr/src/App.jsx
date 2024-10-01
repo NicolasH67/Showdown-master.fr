@@ -10,6 +10,7 @@ import TournamentDetails from './pages/TournamentDetails'
 import Players from './pages/Players'
 import Groups from './pages/Groups'
 import Schedule from './pages/Schedule'
+import AdminEdit from './pages/AdminEdit'
 
 const App = () => {
   return (
@@ -27,7 +28,7 @@ const App = () => {
         <Route path="/tournament/:id/admin/groups" element= {<Groups />} />
         <Route path="/tournament/:id/schedule" element= {<Schedule />} />
         <Route path="/tournament/:id/admin/schedule" element= {<Schedule />} />
-        <Route path="/tournament/:id/admin/edit" element= {<Schedule />} />
+        <Route path="/tournament/:id/admin/edit" element= {<AdminEdit />} />
       </Routes>
     </>
   );
