@@ -22,8 +22,12 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/tournament/:id" element={<TournamentDetails />} />
         <Route path="/tournament/:id/players" element= {<Players />} />
+        <Route path="/tournament/:id/admin/players" element= {<Players />} />
         <Route path="/tournament/:id/groups" element= {<Groups />} />
+        <Route path="/tournament/:id/admin/groups" element= {<Groups />} />
         <Route path="/tournament/:id/schedule" element= {<Schedule />} />
+        <Route path="/tournament/:id/admin/schedule" element= {<Schedule />} />
+        <Route path="/tournament/:id/admin/edit" element= {<Schedule />} />
       </Routes>
     </>
   );
