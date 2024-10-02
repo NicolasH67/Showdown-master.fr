@@ -220,11 +220,11 @@ const ScheduleEdit = () => {
                                         <input
                                             key={setIndex}
                                             type="text"
-                                            value={results[match.id]?.player1?.[setIndex] || ''}
+                                            value={results[match.id]?.player1?.[setIndex] !== undefined ? results[match.id]?.player1?.[setIndex] : ''}
                                             onChange={(e) => handleResultChange(match.id, setIndex, 'player1', e.target.value)}
                                             aria-label={`Set ${setIndex + 1} joueur 1`}
                                             style={{ width: '50px', marginRight: '5px' }}
-                                        />
+                                        />                                    
                                     ))}
                                 </td>
                                 <td rowSpan="2">
@@ -256,7 +256,7 @@ const ScheduleEdit = () => {
                                         <input
                                             key={setIndex}
                                             type="text"
-                                            value={results[match.id]?.player2?.[setIndex] || ''}
+                                            value={results[match.id]?.player2?.[setIndex] !== undefined ? results[match.id]?.player2?.[setIndex] : ''}
                                             onChange={(e) => handleResultChange(match.id, setIndex, 'player2', e.target.value)}
                                             aria-label={`Set ${setIndex + 1} joueur 2`}
                                             style={{ width: '50px', marginRight: '5px' }}
