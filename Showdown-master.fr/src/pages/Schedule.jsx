@@ -12,7 +12,7 @@ const Schedule = () => {
     useEffect(() => {
         const fetchMatches = async () => {
             try {
-                // Requête pour récupérer les matchs avec les informations des joueurs, des divisions et des arbitres
+                // Requête pour récupérer les matchs avec les informations des joueurs, divisions, arbitres et résultats
                 let { data, error } = await supabase
                     .from('match')
                     .select(`
@@ -24,7 +24,8 @@ const Schedule = () => {
                         match_date,
                         match_time, 
                         table_number,
-                        referee:referee_id(firstname, lastname)
+                        referee:referee_id(firstname, lastname),
+                        result
                     `)
                     .eq('tournament_id', id);
 
@@ -32,11 +33,16 @@ const Schedule = () => {
                     throw error;
                 }
 
-                // Trier les matchs par date et heure
+                // Trier les matchs par date, ensuite par heure, ensuite par table
                 data.sort((a, b) => {
                     const dateA = new Date(`${a.match_date}T${a.match_time}`);
                     const dateB = new Date(`${b.match_date}T${b.match_time}`);
-                    return dateA - dateB; // Tri croissant
+
+                    if (dateA < dateB) return -1; // Comparaison des dates
+                    if (dateA > dateB) return 1;
+
+                    // Si les dates et heures sont égales, comparer les numéros de table
+                    return a.table_number - b.table_number;
                 });
 
                 setMatches(data);
@@ -50,6 +56,16 @@ const Schedule = () => {
 
         fetchMatches();
     }, [id]);
+
+    // Fonction pour formater les résultats
+    const formatResult = (resultArray) => {
+        if (!resultArray || resultArray.length === 0) return 'Pas de résultat';
+        const formattedResult = [];
+        for (let i = 0; i < resultArray.length; i += 2) {
+            formattedResult.push(`${resultArray[i]}:${resultArray[i + 1]}`);
+        }
+        return formattedResult.join('; ');
+    };
 
     if (loading) {
         return <div>Chargement des matchs...</div>;
@@ -72,7 +88,7 @@ const Schedule = () => {
                         <th>Groupe</th>
                         <th>Joueur 1</th>
                         <th>Joueur 2</th>
-                        <th>Resultat</th>
+                        <th>Résultat</th>
                         <th>Arbitre</th>
                     </tr>
                 </thead>
@@ -87,7 +103,7 @@ const Schedule = () => {
                             <td>{match.division.name}</td>
                             <td>{match.player1.firstname} {match.player1.lastname}</td>
                             <td>{match.player2.firstname} {match.player2.lastname}</td>
-                            <td>11:8; 11:2</td>
+                            <td>{formatResult(match.result)}</td> {/* Affichage des résultats formatés */}
                             <td>{match.referee?.firstname} {match.referee?.lastname}</td> {/* Afficher le nom de l'arbitre */}
                         </tr>
                     ))}
