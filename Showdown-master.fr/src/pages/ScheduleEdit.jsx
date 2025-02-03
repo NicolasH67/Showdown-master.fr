@@ -1,275 +1,370 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../supabaseClient';
-import './ScheduleEdit.css'; // Fichier CSS pour le style
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import supabase from "../supabaseClient";
+import "./Groups.css";
+
+// Exemple de fichier matchOrder.json importé ici
+const matchOrder = {
+  3: ["2-3", "3-1", "1-2"],
+  4: ["1-4", "2-3", "3-1", "2-4", "1-2", "4-3"],
+  5: ["2-4", "5-3", "4-1", "5-2", "3-1", "4-5", "1-5", "2-3", "1-2", "3-4"],
+  6: [
+    "1-6",
+    "2-4",
+    "3-5",
+    "4-1",
+    "2-5",
+    "6-3",
+    "1-5",
+    "2-3",
+    "4-6",
+    "3-1",
+    "6-2",
+    "5-4",
+    "1-2",
+    "3-4",
+    "5-6",
+  ],
+  7: [
+    "2-7",
+    "3-6",
+    "4-5",
+    "7-1",
+    "6-4",
+    "5-3",
+    "1-6",
+    "2-5",
+    "3-7",
+    "5-1",
+    "6-2",
+    "7-4",
+    "1-4",
+    "2-3",
+    "6-7",
+    "4-2",
+    "3-1",
+    "7-5",
+    "1-2",
+    "4-3",
+    "5-6",
+  ],
+  8: [
+    "1-8",
+    "2-7",
+    "3-6",
+    "4-5",
+    "8-2",
+    "7-1",
+    "6-4",
+    "5-3",
+    "1-6",
+    "2-5",
+    "3-7",
+    "4-8",
+    "5-1",
+    "2-6",
+    "4-7",
+    "8-3",
+    "1-4",
+    "2-3",
+    "5-8",
+    "6-7",
+    "3-1",
+    "4-2",
+    "7-5",
+    "8-6",
+    "1-2",
+    "3-4",
+    "6-5",
+    "7-8",
+  ],
+  // Ajouter ici les autres tailles de groupe si nécessaire...
+};
 
 const ScheduleEdit = () => {
-    const { id } = useParams();
-    const [matches, setMatches] = useState([]);
-    const [results, setResults] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [referees, setReferees] = useState([]);
+  const { id } = useParams();
+  const [groups, setGroups] = useState([]);
+  const [players, setPlayers] = useState({});
+  const [matches, setMatches] = useState({});
+  const [generatedMatches, setGeneratedMatches] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedRound, setSelectedRound] = useState("1st round");
 
-    // Récupérer la liste des matchs et des arbitres
-    useEffect(() => {
-        const fetchMatchesAndReferees = async () => {
-            try {
-                // Récupération des matchs
-                let { data: matchesData, error: matchesError } = await supabase
-                    .from('match')
-                    .select(`
-                        id,
-                        player1:player1_id(firstname, lastname),
-                        player2:player2_id(firstname, lastname),
-                        division:division_id(name),
-                        best_of,
-                        match_date,
-                        match_time, 
-                        table_number,
-                        referee:referee_id(id, firstname, lastname),
-                        result
-                    `)
-                    .eq('tournament_id', id);
+  useEffect(() => {
+    if (!id) {
+      console.error("Tournament ID is not defined!");
+      return;
+    }
 
-                if (matchesError) {
-                    throw matchesError;
-                }
+    const fetchData = async () => {
+      try {
+        const { data: divisions, error: divisionsError } = await supabase
+          .from("division")
+          .select("id, name, round_type, group_type, tournament_id");
 
-                // Initialiser les résultats à partir des données récupérées
-                const initialResults = {};
-                matchesData.forEach(match => {
-                    const player1Results = match.result ? match.result.filter((_, i) => i % 2 === 0) : [];
-                    const player2Results = match.result ? match.result.filter((_, i) => i % 2 === 1) : [];
+        if (divisionsError) throw divisionsError;
 
-                    initialResults[match.id] = {
-                        player1: player1Results,
-                        player2: player2Results,
-                    };
-                });
-                setResults(initialResults);
+        const { data: playersData, error: playersError } = await supabase
+          .from("player")
+          .select("id, firstname, lastname, division_id, tournament_id");
 
-                matchesData.sort((a, b) => {
-                    const dateA = new Date(`${a.match_date}T${a.match_time}`);
-                    const dateB = new Date(`${b.match_date}T${b.match_time}`);
-                    return dateA - dateB; // Tri croissant
-                });
+        if (playersError) throw playersError;
 
-                setMatches(matchesData);
+        const { data: matchesData, error: matchesError } = await supabase
+          .from("match")
+          .select("*")
+          .eq("tournament_id", id);
 
-                // Récupération des arbitres
-                let { data: refereesData, error: refereesError } = await supabase
-                    .from('referee')
-                    .select('id, firstname, lastname');
+        if (matchesError) throw matchesError;
 
-                if (refereesError) {
-                    throw refereesError;
-                }
-
-                setReferees(refereesData);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données :', error);
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMatchesAndReferees();
-    }, [id]);
-
-    const handleMatchChange = (matchId, field, value) => {
-        setMatches(matches.map(match => 
-            match.id === matchId ? { ...match, [field]: value } : match
-        ));
-    };
-
-    const handleSave = async (matchId) => {
-        const matchToSave = matches.find(match => match.id === matchId);
-
-        const { error } = await supabase
-            .from('match')
-            .update({
-                match_date: matchToSave.match_date,
-                match_time: matchToSave.match_time,
-                table_number: matchToSave.table_number,
-                referee_id: matchToSave.referee?.id || null,
-            })
-            .eq('id', matchId);
-
-        if (error) {
-            console.error('Erreur lors de l\'enregistrement du match :', error);
-        } else {
-            console.log('Match sauvegardé avec succès.');
-        }
-    };
-
-    const handleResultChange = (matchId, setIndex, player, value) => {
-        setResults({
-            ...results,
-            [matchId]: {
-                ...results[matchId],
-                [player]: {
-                    ...results[matchId]?.[player],
-                    [setIndex]: value,
-                }
-            }
+        const playersByDivision = {};
+        playersData.forEach((player) => {
+          if (!playersByDivision[player.division_id]) {
+            playersByDivision[player.division_id] = [];
+          }
+          playersByDivision[player.division_id].push(player);
         });
+
+        const matchesByDivision = {};
+        matchesData.forEach((match) => {
+          if (!matchesByDivision[match.division_id]) {
+            matchesByDivision[match.division_id] = [];
+          }
+          matchesByDivision[match.division_id].push(match);
+        });
+
+        setGroups(
+          divisions.filter((g) => g.tournament_id === parseInt(id, 10))
+        );
+        setPlayers(playersByDivision);
+        setMatches(matchesByDivision);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données :", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const handleResultSubmit = async (matchId) => {
-        const resultData = results[matchId];
-    
-        // Concaténation des résultats des sets pour les deux joueurs
-        if (resultData) {
-            const player1Results = resultData.player1 ? Object.values(resultData.player1) : [];
-            const player2Results = resultData.player2 ? Object.values(resultData.player2) : [];
-    
-            // Vérifiez que le tableau des résultats contient bien un maximum de 5 sets
-            if (player1Results.length > 5 || player2Results.length > 5) {
-                console.error('Erreur : Le nombre de sets dépasse la limite autorisée de 5');
-                return; // Ne pas continuer si la condition n'est pas respectée
-            }
-    
-            // Création de l'objet result qui doit être un tableau d'entiers avec les scores de chaque joueur alternant
-            const resultArray = [];
-    
-            // Pour chaque set, nous insérons les résultats dans l'ordre (joueur 1, joueur 2)
-            for (let i = 0; i < Math.max(player1Results.length, player2Results.length); i++) {
-                const player1Set = player1Results[i] !== undefined ? parseInt(player1Results[i], 10) : null;
-                const player2Set = player2Results[i] !== undefined ? parseInt(player2Results[i], 10) : null;
-    
-                if (player1Set !== null && player2Set !== null) {
-                    resultArray.push(player1Set, player2Set);
-                }
-            }
-    
-            console.log("Données envoyées pour le match ID", matchId, ":", resultArray);
-    
-            // Mise à jour du champ result dans la table match
-            const { error } = await supabase
-                .from('match')
-                .update({ result: resultArray })
-                .eq('id', matchId);
-    
-            if (error) {
-                console.error('Erreur lors de l\'enregistrement du résultat du match :', error);
-            } else {
-                console.log('Résultat du match enregistré avec succès');
-            }
-        }
-    };
-    
+    fetchData();
+  }, [id]);
 
-    if (loading) {
-        return <div>Chargement des matchs...</div>;
+  const generateMatches = (groupId) => {
+    const groupPlayers = players[groupId] || [];
+    if (groupPlayers.length < 2) {
+      alert("Il faut au moins 2 joueurs pour créer des matchs.");
+      return;
     }
 
-    if (error) {
-        return <div>Erreur lors de la récupération des matchs : {error.message}</div>;
+    const matchOrderForGroup = matchOrder[groupPlayers.length];
+    if (!matchOrderForGroup) {
+      alert(
+        `Aucun ordre de match défini pour un groupe de ${groupPlayers.length} joueurs.`
+      );
+      return;
     }
 
-    return (
-        <div>
-            <h1>Planning des matchs</h1>
-            <table>
+    const matchList = matchOrderForGroup.map((matchStr) => {
+      const [player1, player2] = matchStr.split("-").map(Number);
+      return {
+        player1_id: groupPlayers[player1 - 1]?.id,
+        player2_id: groupPlayers[player2 - 1]?.id,
+        division_id: groupId,
+        tournament_id: parseInt(id, 10),
+        date: "",
+        time: "",
+        table: "",
+      };
+    });
+
+    setGeneratedMatches((prev) => ({ ...prev, [groupId]: matchList }));
+  };
+
+  const updateGeneratedMatch = (groupId, matchIndex, field, value) => {
+    setGeneratedMatches((prev) => {
+      const updatedMatches = [...prev[groupId]];
+      updatedMatches[matchIndex][field] = value;
+      return { ...prev, [groupId]: updatedMatches };
+    });
+  };
+
+  const saveMatches = async (groupId) => {
+    try {
+      const { error } = await supabase
+        .from("match")
+        .insert(generatedMatches[groupId]);
+      if (error) throw error;
+
+      alert("Les matchs ont été enregistrés !");
+      setGeneratedMatches((prev) => ({ ...prev, [groupId]: [] }));
+      window.location.reload();
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement des matchs :", error);
+      alert("Une erreur est survenue.");
+    }
+  };
+
+  const filteredGroups = groups.filter(
+    (group) => group.round_type === selectedRound
+  );
+
+  return (
+    <div>
+      <h1>Groupes du tournoi</h1>
+
+      <div className="round-selector">
+        <button onClick={() => setSelectedRound("1st round")}>1er Tour</button>
+        <button onClick={() => setSelectedRound("2nd round")}>2e Tour</button>
+        <button onClick={() => setSelectedRound("final round")}>
+          Tour Final
+        </button>
+      </div>
+
+      {filteredGroups.length > 0 ? (
+        <section>
+          {filteredGroups.map((group) => (
+            <div key={group.id}>
+              <h3>
+                {group.name} - {group.group_type}
+              </h3>
+
+              <table>
                 <thead>
+                  <tr>
+                    <th>Place</th>
+                    <th>Nom du joueur</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {players[group.id]?.length > 0 ? (
+                    players[group.id].map((player, index) => (
+                      <tr key={player.id}>
+                        <td>{index + 1}</td>
+                        <td>
+                          {player.firstname} {player.lastname}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
                     <tr>
-                        <th>N°</th>
+                      <td colSpan="2">Aucun joueur trouvé</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+
+              <button onClick={() => generateMatches(group.id)}>
+                Générer les matchs
+              </button>
+
+              {generatedMatches[group.id]?.length > 0 && (
+                <div>
+                  <h4>Matchs générés :</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Joueur 1</th>
+                        <th>Joueur 2</th>
                         <th>Date</th>
                         <th>Heure</th>
                         <th>Table</th>
-                        <th>Groupe</th>
-                        <th>Joueur</th>
-                        <th>Résultat</th>
-                        <th>Arbitre</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {matches.map((match, index) => (
-                        <React.Fragment key={match.id}>
-                            <tr>
-                                <td rowSpan="2">{index + 1}</td>
-                                <td rowSpan="2">
-                                    <input
-                                        type="date"
-                                        value={match.match_date}
-                                        onChange={(e) => handleMatchChange(match.id, 'match_date', e.target.value)}
-                                    />
-                                </td>
-                                <td rowSpan="2">
-                                    <input
-                                        type="time"
-                                        value={match.match_time}
-                                        onChange={(e) => handleMatchChange(match.id, 'match_time', e.target.value)}
-                                    />
-                                </td>
-                                <td rowSpan="2">
-                                    <input
-                                        type="number"
-                                        value={match.table_number}
-                                        onChange={(e) => handleMatchChange(match.id, 'table_number', e.target.value)}
-                                        style={{ width: '50px' }}
-                                    />
-                                </td>
-                                <td rowSpan="2">{match.division.name}</td>
-                                <td>{match.player1.firstname} {match.player1.lastname}</td>
-                                <td>
-                                    {[...Array(5)].map((_, setIndex) => (
-                                        <input
-                                            key={setIndex}
-                                            type="text"
-                                            value={results[match.id]?.player1?.[setIndex] !== undefined ? results[match.id]?.player1?.[setIndex] : ''}
-                                            onChange={(e) => handleResultChange(match.id, setIndex, 'player1', e.target.value)}
-                                            aria-label={`Set ${setIndex + 1} joueur 1`}
-                                            style={{ width: '50px', marginRight: '5px' }}
-                                        />                                    
-                                    ))}
-                                </td>
-                                <td rowSpan="2">
-                                    <select
-                                        value={match.referee?.id || ''}
-                                        onChange={(e) => handleMatchChange(match.id, 'referee', referees.find(ref => ref.id === Number(e.target.value)) || null)}
-                                    >
-                                        <option value="">Aucun arbitre</option>
-                                        {referees.map((referee) => (
-                                            <option key={referee.id} value={referee.id}>
-                                                {referee.firstname} {referee.lastname}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td rowSpan="2">
-                                <button onClick={() => { 
-                                    handleSave(match.id); 
-                                    handleResultSubmit(match.id); 
-                                }}>
-                                    Enregistrer
-                                </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>{match.player2.firstname} {match.player2.lastname}</td>
-                                <td>
-                                    {[...Array(5)].map((_, setIndex) => (
-                                        <input
-                                            key={setIndex}
-                                            type="text"
-                                            value={results[match.id]?.player2?.[setIndex] !== undefined ? results[match.id]?.player2?.[setIndex] : ''}
-                                            onChange={(e) => handleResultChange(match.id, setIndex, 'player2', e.target.value)}
-                                            aria-label={`Set ${setIndex + 1} joueur 2`}
-                                            style={{ width: '50px', marginRight: '5px' }}
-                                        />
-                                    ))}
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {generatedMatches[group.id].map((match, index) => (
+                        <tr key={index}>
+                          <td>
+                            {players[group.id].find(
+                              (p) => p.id === match.player1_id
+                            )
+                              ? `${
+                                  players[group.id].find(
+                                    (p) => p.id === match.player1_id
+                                  )?.firstname
+                                } ${
+                                  players[group.id].find(
+                                    (p) => p.id === match.player1_id
+                                  )?.lastname
+                                }`
+                              : ""}
+                          </td>
+                          <td>
+                            {players[group.id].find(
+                              (p) => p.id === match.player2_id
+                            )
+                              ? `${
+                                  players[group.id].find(
+                                    (p) => p.id === match.player2_id
+                                  )?.firstname
+                                } ${
+                                  players[group.id].find(
+                                    (p) => p.id === match.player2_id
+                                  )?.lastname
+                                }`
+                              : ""}
+                          </td>
+                          <td>
+                            <input
+                              type="date"
+                              value={match.date}
+                              onChange={(e) =>
+                                updateGeneratedMatch(
+                                  group.id,
+                                  index,
+                                  "date",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="time"
+                              value={match.time}
+                              onChange={(e) =>
+                                updateGeneratedMatch(
+                                  group.id,
+                                  index,
+                                  "time",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              value={match.table}
+                              placeholder="Table"
+                              onChange={(e) =>
+                                updateGeneratedMatch(
+                                  group.id,
+                                  index,
+                                  "table",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <button onClick={() => saveMatches(group.id)}>
+                    Enregistrer les matchs
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </section>
+      ) : (
+        <div>Aucun groupe trouvé.</div>
+      )}
+    </div>
+  );
 };
 
 export default ScheduleEdit;

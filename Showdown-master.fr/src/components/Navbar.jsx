@@ -1,24 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import './Navbar.css';
-import supabase from '../supabaseClient';
+import "./Navbar.css";
+import supabase from "../supabaseClient";
 
 const Navbar = () => {
   const location = useLocation();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [adminPassword, setAdminPassword] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false); // État pour vérifier si admin est connecté
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const passwordInputRef = useRef(null);
   const [tournamentId, setTournamentId] = useState(null);
 
   // Vérifie si l'utilisateur est sur une page de tournoi
-  const isTournamentPage = location.pathname.startsWith('/tournament');
+  const isTournamentPage = location.pathname.startsWith("/tournament");
 
   useEffect(() => {
-    const id = location.pathname.split('/')[2];
+    const id = location.pathname.split("/")[2];
     setTournamentId(id);
   }, [location.pathname]);
 
@@ -26,13 +26,16 @@ const Navbar = () => {
     if (!tournamentId) return;
 
     const { data, error } = await supabase
-      .from('tournament')
-      .select('admin_password')
-      .eq('id', tournamentId)
+      .from("tournament")
+      .select("admin_password")
+      .eq("id", tournamentId)
       .single();
 
     if (error) {
-      console.error('Erreur lors de la récupération du mot de passe admin :', error);
+      console.error(
+        "Erreur lors de la récupération du mot de passe admin :",
+        error
+      );
       return;
     }
 
@@ -45,8 +48,8 @@ const Navbar = () => {
 
   const handleLoginClick = () => {
     setIsModalOpen(true);
-    setError('');
-    setPassword('');
+    setError("");
+    setPassword("");
   };
 
   const handlePasswordSubmit = (e) => {
@@ -56,25 +59,25 @@ const Navbar = () => {
       setIsModalOpen(false);
       setIsAdmin(true);
 
-      console.log("password is correct")
-      if (location.pathname.includes('players')) {
+      console.log("password is correct");
+      if (location.pathname.includes("players")) {
         navigate(`/tournament/${tournamentId}/admin/players`);
-      } else if (location.pathname.includes('groups')) {
+      } else if (location.pathname.includes("groups")) {
         navigate(`/tournament/${tournamentId}/admin/groups`);
-      } else if (location.pathname.includes('schedule')) {
+      } else if (location.pathname.includes("schedule")) {
         navigate(`/tournament/${tournamentId}/admin/schedule`);
       } else {
         navigate(`/tournament/${tournamentId}/admin/edit`);
       }
     } else {
-      setError('Mot de passe incorrect');
+      setError("Mot de passe incorrect");
     }
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setPassword('');
-    setError('');
+    setPassword("");
+    setError("");
   };
 
   // Focus sur l'input quand la modale s'ouvre
@@ -87,19 +90,19 @@ const Navbar = () => {
   // Gérer la fermeture de la modale avec "Escape"
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         handleModalClose();
       }
     };
 
     if (isModalOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
     } else {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener("keydown", handleEscape);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, [isModalOpen]);
 
@@ -108,22 +111,37 @@ const Navbar = () => {
       <nav className="navbar">
         <ul>
           <li>
-            <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
+            <Link to="/" className={location.pathname === "/" ? "active" : ""}>
               Accueil
             </Link>
           </li>
+          {!isTournamentPage && (
+            <>
+              <li>
+                <Link
+                  to="/history"
+                  className={location.pathname === "/history" ? "active" : ""}
+                >
+                  Historique
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/create-tournament"
+                  className={
+                    location.pathname === "/create-tournament" ? "active" : ""
+                  }
+                >
+                  Créer un nouveau tournoi
+                </Link>
+              </li>
+            </>
+          )}
           <li>
-            <Link to="/history" className={location.pathname === '/history' ? 'active' : ''}>
-              Historique
-            </Link>
-          </li>
-          <li>
-            <Link to="/create-tournament" className={location.pathname === '/create-tournament' ? 'active' : ''}>
-              Créer un nouveau tournoi
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
+            <Link
+              to="/contact"
+              className={location.pathname === "/contact" ? "active" : ""}
+            >
               Contact
             </Link>
           </li>
@@ -132,27 +150,70 @@ const Navbar = () => {
           {isTournamentPage && tournamentId && (
             <>
               <li>
-                <Link to={`/tournament/${tournamentId}/${isAdmin ? 'admin/players' : 'players'}`} className={location.pathname.includes('players') ? 'active' : ''}>
-                  {isAdmin ? 'Édition des Joueurs' : 'Joueurs'}
+                <Link
+                  to={`/tournament/${tournamentId}/${
+                    isAdmin ? "admin/players" : "players"
+                  }`}
+                  className={
+                    location.pathname.includes("players") ? "active" : ""
+                  }
+                >
+                  {isAdmin ? "Édition des Joueurs" : "Joueurs"}
                 </Link>
               </li>
               <li>
-                <Link to={`/tournament/${tournamentId}/${isAdmin ? 'admin/groups' : 'groups'}`} className={location.pathname.includes('groups') ? 'active' : ''}>
-                  {isAdmin ? 'Édition des Groupes' : 'Groupes'}
+                <Link
+                  to={`/tournament/${tournamentId}/${
+                    isAdmin ? "admin/groups" : "groups"
+                  }`}
+                  className={
+                    location.pathname.includes("groups") ? "active" : ""
+                  }
+                >
+                  {isAdmin ? "Édition des Groupes" : "Groupes"}
                 </Link>
               </li>
               <li>
-                <Link to={`/tournament/${tournamentId}/${isAdmin ? 'admin/schedule' : 'schedule'}`} className={location.pathname.includes('schedule') ? 'active' : ''}>
-                  {isAdmin ? 'Édition du Planning' : 'Planning'}
+                <Link
+                  to={`/tournament/${tournamentId}/${
+                    isAdmin ? "admin/schedule" : "schedule"
+                  }`}
+                  className={
+                    location.pathname.includes("schedule") ? "active" : ""
+                  }
+                >
+                  {isAdmin ? "Édition du Planning" : "Planning"}
                 </Link>
               </li>
+              {isAdmin && (
+                <li>
+                  <Link
+                    to={`/tournament/${tournamentId}/admin/result`}
+                    className={
+                      location.pathname.includes("result") ? "active" : ""
+                    }
+                  >
+                    Édition des résultats
+                  </Link>
+                </li>
+              )}
               <li>
                 {!isAdmin ? (
-                  <button onClick={handleLoginClick} className={location.pathname.includes('admin') ? 'active' : ''}>
+                  <button
+                    onClick={handleLoginClick}
+                    className={
+                      location.pathname.includes("admin") ? "active" : ""
+                    }
+                  >
                     Admin Login
                   </button>
                 ) : (
-                  <Link to={`/tournament/${tournamentId}/admin/edit`} className={location.pathname.includes('edit') ? 'active' : ''}>
+                  <Link
+                    to={`/tournament/${tournamentId}/admin/edit`}
+                    className={
+                      location.pathname.includes("edit") ? "active" : ""
+                    }
+                  >
                     Édition du tournoi
                   </Link>
                 )}
@@ -179,7 +240,9 @@ const Navbar = () => {
               />
               {error && <p className="error">{error}</p>}
               <button type="submit">Soumettre</button>
-              <button type="button" onClick={handleModalClose}>Annuler</button>
+              <button type="button" onClick={handleModalClose}>
+                Annuler
+              </button>
             </form>
           </div>
         </div>

@@ -103,6 +103,7 @@ const CreateTournament = () => {
             id="endday"
             value={endday}
             onChange={(e) => setEndday(e.target.value)}
+            min={startday}
             required
           />
         </div>
