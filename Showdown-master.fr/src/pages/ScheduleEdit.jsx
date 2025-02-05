@@ -2,84 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import supabase from "../supabaseClient";
 import "./Groups.css";
-
-// Exemple de fichier matchOrder.json importé ici
-const matchOrder = {
-  3: ["2-3", "3-1", "1-2"],
-  4: ["1-4", "2-3", "3-1", "2-4", "1-2", "4-3"],
-  5: ["2-4", "5-3", "4-1", "5-2", "3-1", "4-5", "1-5", "2-3", "1-2", "3-4"],
-  6: [
-    "1-6",
-    "2-4",
-    "3-5",
-    "4-1",
-    "2-5",
-    "6-3",
-    "1-5",
-    "2-3",
-    "4-6",
-    "3-1",
-    "6-2",
-    "5-4",
-    "1-2",
-    "3-4",
-    "5-6",
-  ],
-  7: [
-    "2-7",
-    "3-6",
-    "4-5",
-    "7-1",
-    "6-4",
-    "5-3",
-    "1-6",
-    "2-5",
-    "3-7",
-    "5-1",
-    "6-2",
-    "7-4",
-    "1-4",
-    "2-3",
-    "6-7",
-    "4-2",
-    "3-1",
-    "7-5",
-    "1-2",
-    "4-3",
-    "5-6",
-  ],
-  8: [
-    "1-8",
-    "2-7",
-    "3-6",
-    "4-5",
-    "8-2",
-    "7-1",
-    "6-4",
-    "5-3",
-    "1-6",
-    "2-5",
-    "3-7",
-    "4-8",
-    "5-1",
-    "2-6",
-    "4-7",
-    "8-3",
-    "1-4",
-    "2-3",
-    "5-8",
-    "6-7",
-    "3-1",
-    "4-2",
-    "7-5",
-    "8-6",
-    "1-2",
-    "3-4",
-    "6-5",
-    "7-8",
-  ],
-  // Ajouter ici les autres tailles de groupe si nécessaire...
-};
+import matchOrder from "../assets/matchOrder.json";
 
 const ScheduleEdit = () => {
   const { id } = useParams();
@@ -157,7 +80,7 @@ const ScheduleEdit = () => {
       return;
     }
 
-    const matchOrderForGroup = matchOrder[groupPlayers.length];
+    const matchOrderForGroup = matchOrder["Match Order"][groupPlayers.length];
     if (!matchOrderForGroup) {
       alert(
         `Aucun ordre de match défini pour un groupe de ${groupPlayers.length} joueurs.`

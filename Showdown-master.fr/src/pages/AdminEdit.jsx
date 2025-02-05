@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import supabase from '../supabaseClient';
-import './AdminEdit.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import supabase from "../supabaseClient";
+import "./AdminEdit.css";
 
 const AdminEdit = () => {
   const { id } = useParams();
   const [tournamentData, setTournamentData] = useState({
-    title: '',
-    startDay: '',
-    endDay: '',
+    title: "",
+    startDay: "",
+    endDay: "",
     mix: false,
-    email: '',
-    admin_password: '',
-    user_password: '',
-    ereferee_password: '',
+    email: "",
+    admin_password: "",
+    user_password: "",
+    ereferee_password: "",
     table_count: 0,
     match_duration: 0,
-    location: ''
+    location: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchTournament = async () => {
       const { data, error } = await supabase
-        .from('tournament')
-        .select('*')
-        .eq('id', id);
-  
+        .from("tournament")
+        .select("*")
+        .eq("id", id);
+
       if (error) {
-        setError('Erreur lors de la récupération des données du tournoi');
+        setError("Erreur lors de la récupération des données du tournoi");
         return;
       }
-  
+
       if (data && data.length > 0) {
-        setTournamentData(data[0]);  // Accédez au premier élément de l'array
+        setTournamentData(data[0]); // Accédez au premier élément de l'array
       }
     };
-  
+
     fetchTournament();
   }, [id]);
 
@@ -46,7 +46,7 @@ const AdminEdit = () => {
     const { name, value, type, checked } = e.target;
     setTournamentData({
       ...tournamentData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -55,16 +55,18 @@ const AdminEdit = () => {
     setLoading(true);
 
     const { error } = await supabase
-      .from('tournament')
+      .from("tournament")
       .update(tournamentData)
-      .eq('id', id);
+      .eq("id", id);
 
     setLoading(false);
 
     if (error) {
-      setError('Erreur lors de la mise à jour du tournoi');
+      setError("Erreur lors de la mise à jour du tournoi");
     } else {
-      setSuccessMessage('Les paramètres du tournoi ont été mis à jour avec succès');
+      setSuccessMessage(
+        "Les paramètres du tournoi ont été mis à jour avec succès"
+      );
     }
   };
 
@@ -79,7 +81,7 @@ const AdminEdit = () => {
           <input
             type="text"
             name="title"
-            value={tournamentData.title || ''}
+            value={tournamentData.title || ""}
             onChange={handleChange}
             required
           />
@@ -90,7 +92,7 @@ const AdminEdit = () => {
           <input
             type="date"
             name="startday"
-            value={tournamentData.startday || ''}
+            value={tournamentData.startday || ""}
             onChange={handleChange}
             required
           />
@@ -101,19 +103,9 @@ const AdminEdit = () => {
           <input
             type="date"
             name="endday"
-            value={tournamentData.endday || ''}
+            value={tournamentData.endday || ""}
             onChange={handleChange}
             required
-          />
-        </div>
-
-        <div>
-          <label>Mixte</label>
-          <input
-            type="checkbox"
-            name="mix"
-            checked={tournamentData.mix}
-            onChange={handleChange}
           />
         </div>
 
@@ -122,7 +114,7 @@ const AdminEdit = () => {
           <input
             type="email"
             name="email"
-            value={tournamentData.email || ''}
+            value={tournamentData.email || ""}
             onChange={handleChange}
             required
           />
@@ -133,7 +125,7 @@ const AdminEdit = () => {
           <input
             type="text"
             name="admin_password"
-            value={tournamentData.admin_password || ''}
+            value={tournamentData.admin_password || ""}
             onChange={handleChange}
             required
           />
@@ -164,7 +156,7 @@ const AdminEdit = () => {
           <input
             type="number"
             name="table_count"
-            value={tournamentData.table_count || ''}
+            value={tournamentData.table_count || ""}
             onChange={handleChange}
             required
           />
@@ -175,7 +167,7 @@ const AdminEdit = () => {
           <input
             type="number"
             name="match_duration"
-            value={tournamentData.match_duration || ''}
+            value={tournamentData.match_duration || ""}
             onChange={handleChange}
             required
           />
@@ -192,7 +184,7 @@ const AdminEdit = () => {
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? 'Mise à jour...' : 'Mettre à jour le tournoi'}
+          {loading ? "Mise à jour..." : "Mettre à jour le tournoi"}
         </button>
       </form>
     </div>
