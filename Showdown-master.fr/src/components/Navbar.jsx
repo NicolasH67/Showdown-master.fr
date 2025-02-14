@@ -158,7 +158,9 @@ const Navbar = () => {
                     location.pathname.includes("players") ? "active" : ""
                   }
                 >
-                  {isAdmin ? "Édition des Joueurs" : "Joueurs"}
+                  {isAdmin
+                    ? "Édition des Joueurs & Arbitres"
+                    : "Joueurs & Arbitres"}
                 </Link>
               </li>
               <li>

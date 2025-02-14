@@ -11,71 +11,52 @@ const ResultEdit = () => {
   const [error, setError] = useState(null);
   const [referees, setReferees] = useState([]);
 
-  // Récupérer la liste des matchs et des arbitres
   useEffect(() => {
     const fetchMatchesAndReferees = async () => {
       try {
-        // Récupération des matchs
-        let { data: matchesData, error: matchesError } = await supabase
+        // Récupérer les matchs
+        let { data: matchData, error: matchError } = await supabase
           .from("match")
           .select(
             `
-                        id,
-                        player1:player1_id(firstname, lastname),
-                        player2:player2_id(firstname, lastname),
-                        division:division_id(name),
-                        best_of,
-                        match_date,
-                        match_time, 
-                        table_number,
-                        referee:referee_id(id, firstname, lastname),
-                        result
-                    `
+            id,
+            player1:player1_id(firstname, lastname),
+            player2:player2_id(firstname, lastname),
+            division:division_id(name),
+            match_date,
+            match_time, 
+            table_number,
+            referee_id,
+            result
+            `
           )
           .eq("tournament_id", id);
 
-        if (matchesError) {
-          throw matchesError;
-        }
+        if (matchError) throw matchError;
 
-        // Initialiser les résultats à partir des données récupérées
-        const initialResults = {};
-        matchesData.forEach((match) => {
-          const player1Results = match.result
-            ? match.result.filter((_, i) => i % 2 === 0)
-            : [];
-          const player2Results = match.result
-            ? match.result.filter((_, i) => i % 2 === 1)
-            : [];
-
-          initialResults[match.id] = {
-            player1: player1Results,
-            player2: player2Results,
-          };
-        });
-        setResults(initialResults);
-
-        matchesData.sort((a, b) => {
+        // Trier les matchs par date et table
+        matchData.sort((a, b) => {
           const dateA = new Date(`${a.match_date}T${a.match_time}`);
           const dateB = new Date(`${b.match_date}T${b.match_time}`);
-          return dateA - dateB; // Tri croissant
+          if (dateA < dateB) return -1;
+          if (dateA > dateB) return 1;
+          return a.table_number - b.table_number;
         });
 
-        setMatches(matchesData);
+        setMatches(matchData);
 
-        // Récupération des arbitres
-        let { data: refereesData, error: refereesError } = await supabase
+        // Récupérer les arbitres assignés au tournoi
+        let { data: refereeData, error: refereeError } = await supabase
           .from("referee")
-          .select("id, firstname, lastname");
+          .select("id, firstname, lastname")
+          .eq("tournament_id", id);
 
-        if (refereesError) {
-          throw refereesError;
-        }
+        if (refereeError) throw refereeError;
 
-        setReferees(refereesData);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-        setError(error);
+        setReferees(refereeData);
+      } catch (err) {
+        console.error("Erreur lors de la récupération des données :", err);
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -128,7 +109,6 @@ const ResultEdit = () => {
   const handleResultSubmit = async (matchId) => {
     const resultData = results[matchId];
 
-    // Concaténation des résultats des sets pour les deux joueurs
     if (resultData) {
       const player1Results = resultData.player1
         ? Object.values(resultData.player1)
@@ -137,18 +117,15 @@ const ResultEdit = () => {
         ? Object.values(resultData.player2)
         : [];
 
-      // Vérifiez que le tableau des résultats contient bien un maximum de 5 sets
       if (player1Results.length > 5 || player2Results.length > 5) {
         console.error(
           "Erreur : Le nombre de sets dépasse la limite autorisée de 5"
         );
-        return; // Ne pas continuer si la condition n'est pas respectée
+        return;
       }
 
-      // Création de l'objet result qui doit être un tableau d'entiers avec les scores de chaque joueur alternant
       const resultArray = [];
 
-      // Pour chaque set, nous insérons les résultats dans l'ordre (joueur 1, joueur 2)
       for (
         let i = 0;
         i < Math.max(player1Results.length, player2Results.length);
@@ -175,7 +152,6 @@ const ResultEdit = () => {
         resultArray
       );
 
-      // Mise à jour du champ result dans la table match
       const { error } = await supabase
         .from("match")
         .update({ result: resultArray })

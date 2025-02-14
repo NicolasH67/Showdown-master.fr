@@ -82,9 +82,7 @@ const ScheduleEdit = () => {
 
     const matchOrderForGroup = matchOrder["Match Order"][groupPlayers.length];
     if (!matchOrderForGroup) {
-      alert(
-        `Aucun ordre de match défini pour un groupe de ${groupPlayers.length} joueurs.`
-      );
+      alert(`Aucun ordre de match défini pour ${groupPlayers.length} joueurs.`);
       return;
     }
 
@@ -95,9 +93,9 @@ const ScheduleEdit = () => {
         player2_id: groupPlayers[player2 - 1]?.id,
         division_id: groupId,
         tournament_id: parseInt(id, 10),
-        date: "",
-        time: "",
-        table: "",
+        match_date: "", // ✅ Correction du nom du champ
+        match_time: "", // ✅ Correction du nom du champ
+        table_number: "", // ✅ Correction du nom du champ
       };
     });
 
@@ -114,17 +112,59 @@ const ScheduleEdit = () => {
 
   const saveMatches = async (groupId) => {
     try {
-      const { error } = await supabase
-        .from("match")
-        .insert(generatedMatches[groupId]);
-      if (error) throw error;
+      const matches = generatedMatches[groupId];
+
+      console.log(matches);
+
+      if (!matches || matches.length === 0) {
+        throw new Error("Aucun match valide à enregistrer.");
+      }
+
+      // Vérification des champs obligatoires
+      const validMatches = matches.map((match) => {
+        console.log(match);
+        if (
+          !match.player1_id ||
+          !match.player2_id ||
+          !match.match_date || // ✅ Vérification du format
+          !match.match_time || // ✅ Vérification du format
+          !match.table_number || // ✅ Vérification du format
+          !match.tournament_id ||
+          !match.division_id
+        ) {
+          throw new Error("Un match contient des données incomplètes.");
+        }
+
+        return {
+          player1_id: match.player1_id,
+          player2_id: match.player2_id,
+          result: match.result || [], // ✅ Mettre un tableau vide si null
+          match_date: match.match_date, // ✅ Assurez-vous que c'est bien une date "YYYY-MM-DD"
+          match_time: match.match_time, // ✅ Assurez-vous que c'est bien une heure "HH:MM:SS"
+          table_number: parseInt(match.table_number, 10), // ✅ Convertir en INT
+          tournament_id: match.tournament_id,
+          division_id: match.division_id,
+          referee_id: null, // ✅ NULL si non renseigné
+        };
+      });
+
+      console.log(
+        "Données envoyées à Supabase :",
+        JSON.stringify(validMatches, null, 2)
+      );
+
+      const { error } = await supabase.from("match").insert(validMatches);
+      if (error) {
+        console.error("Erreur Supabase :", error);
+        throw new Error(error.message);
+      }
 
       alert("Les matchs ont été enregistrés !");
       setGeneratedMatches((prev) => ({ ...prev, [groupId]: [] }));
       window.location.reload();
     } catch (error) {
-      console.error("Erreur lors de l'enregistrement des matchs :", error);
-      alert("Une erreur est survenue.");
+      console.error("Erreur lors de l'enregistrement :", error.message);
+      alert(`Une erreur est survenue : ${error.message}`);
     }
   };
 
@@ -230,12 +270,11 @@ const ScheduleEdit = () => {
                           <td>
                             <input
                               type="date"
-                              value={match.date}
                               onChange={(e) =>
                                 updateGeneratedMatch(
                                   group.id,
                                   index,
-                                  "date",
+                                  "match_date",
                                   e.target.value
                                 )
                               }
@@ -244,12 +283,11 @@ const ScheduleEdit = () => {
                           <td>
                             <input
                               type="time"
-                              value={match.time}
                               onChange={(e) =>
                                 updateGeneratedMatch(
                                   group.id,
                                   index,
-                                  "time",
+                                  "match_time",
                                   e.target.value
                                 )
                               }
@@ -264,7 +302,7 @@ const ScheduleEdit = () => {
                                 updateGeneratedMatch(
                                   group.id,
                                   index,
-                                  "table",
+                                  "table_number",
                                   e.target.value
                                 )
                               }
