@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import supabase from "../supabaseClient";
+import supabase from "../supabaseClient.js";
 import { useParams } from "react-router-dom";
 
 const PlayersEdit = () => {
@@ -7,13 +7,14 @@ const PlayersEdit = () => {
   const [lastname, setLastname] = useState("");
   const [divisionId, setDivisionId] = useState("");
   const [divisions, setDivisions] = useState([]);
-  const [clubName, setClubName] = useState(""); // Nom du club
-  const [clubAbbreviation, setClubAbbreviation] = useState(""); // Abréviation du club
+  const [clubId, setClubId] = useState("");
+  const [clubs, setClubs] = useState([]);
+  const [clubName, setClubName] = useState("");
+  const [clubAbbreviation, setClubAbbreviation] = useState("");
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams();
-
-  const [formType, setFormType] = useState("player"); // Initialiser à "player" pour afficher le formulaire de joueur par défaut
+  const [formType, setFormType] = useState("player");
 
   useEffect(() => {
     const fetchDivisions = async () => {
@@ -37,12 +38,31 @@ const PlayersEdit = () => {
       }
     };
 
+    const fetchClubs = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("club")
+          .select("id, name, tournament_id");
+
+        if (error) throw error;
+
+        const filterdClubByTournament = data.filter(
+          (clubs) => clubs.tournament_id === Number(id)
+        );
+        console.log(" filtered club", filterdClubByTournament);
+
+        setClubs(filterdClubByTournament);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des clubs:", error);
+      }
+    };
+
     if (id) {
       fetchDivisions();
+      fetchClubs();
     }
   }, [id]);
 
-  // Soumission pour les joueurs
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,6 +71,7 @@ const PlayersEdit = () => {
           firstname,
           lastname,
           division_id: divisionId,
+          club_id: clubId,
           tournament_id: id,
         },
       ]);
@@ -60,6 +81,7 @@ const PlayersEdit = () => {
       setFirstname("");
       setLastname("");
       setDivisionId("");
+      setClubId("");
       setError(null);
     } catch (error) {
       console.error("Erreur lors de l’ajout:", error);
@@ -67,7 +89,6 @@ const PlayersEdit = () => {
     }
   };
 
-  // Soumission pour les arbitres
   const handleRefereeSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -90,7 +111,6 @@ const PlayersEdit = () => {
     }
   };
 
-  // Soumission pour les clubs
   const handleClubSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -98,6 +118,7 @@ const PlayersEdit = () => {
         {
           name: clubName,
           abbreviation: clubAbbreviation,
+          tournament_id: id,
         },
       ]);
       if (error) throw error;
@@ -115,39 +136,30 @@ const PlayersEdit = () => {
   return (
     <div>
       <h1>Ajouter une entité</h1>
-
-      {/* Trois boutons pour afficher chaque formulaire */}
       <div className="round-selector">
         <button onClick={() => setFormType("club")}>Créer un Club</button>
         <button onClick={() => setFormType("player")}>Créer un Joueur</button>
         <button onClick={() => setFormType("referee")}>Créer un Arbitre</button>
       </div>
 
-      {/* Affichage conditionnel des formulaires */}
       {formType === "club" && (
         <div>
           <h2>Ajouter un Club</h2>
           <form onSubmit={handleClubSubmit}>
-            <div>
-              <label>Nom du club:</label>
-              <input
-                type="text"
-                value={clubName}
-                onChange={(e) => setClubName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label>Abbreviation du club:</label>
-              <input
-                type="text"
-                value={clubAbbreviation}
-                onChange={(e) => setClubAbbreviation(e.target.value)}
-                required
-              />
-            </div>
-
+            <label>Nom du club:</label>
+            <input
+              type="text"
+              value={clubName}
+              onChange={(e) => setClubName(e.target.value)}
+              required
+            />
+            <label>Abbreviation du club:</label>
+            <input
+              type="text"
+              value={clubAbbreviation}
+              onChange={(e) => setClubAbbreviation(e.target.value)}
+              required
+            />
             <button type="submit">Ajouter le Club</button>
           </form>
         </div>
@@ -157,25 +169,33 @@ const PlayersEdit = () => {
         <div>
           <h2>Ajouter un Joueur</h2>
           <form onSubmit={handlePlayerSubmit}>
-            <div>
-              <label>Prénom:</label>
-              <input
-                type="text"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label>Nom:</label>
-              <input
-                type="text"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                required
-              />
-            </div>
+            <label>Prénom:</label>
+            <input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              required
+            />
+            <label>Nom:</label>
+            <input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+              required
+            />
+            <label>Club:</label>
+            <select
+              value={clubId}
+              onChange={(e) => setClubId(e.target.value)}
+              required
+            >
+              <option value="">Sélectionner un club</option>
+              {clubs.map((club) => (
+                <option key={club.id} value={club.id}>
+                  {club.name}
+                </option>
+              ))}
+            </select>
 
             <div>
               <label>Première division:</label>
@@ -202,32 +222,25 @@ const PlayersEdit = () => {
         <div>
           <h2>Ajouter un Arbitre</h2>
           <form onSubmit={handleRefereeSubmit}>
-            <div>
-              <label>Prénom:</label>
-              <input
-                type="text"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label>Nom:</label>
-              <input
-                type="text"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                required
-              />
-            </div>
-
+            <label>Prénom:</label>
+            <input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              required
+            />
+            <label>Nom:</label>
+            <input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+              required
+            />
             <button type="submit">Ajouter l'Arbitre</button>
           </form>
         </div>
       )}
 
-      {/* Affichage des erreurs ou du succès */}
       {error && <div style={{ color: "red" }}>{error}</div>}
       {success && <div style={{ color: "green" }}>{success}</div>}
     </div>

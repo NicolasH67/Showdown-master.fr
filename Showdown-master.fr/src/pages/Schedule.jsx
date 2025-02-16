@@ -24,7 +24,8 @@ const Schedule = () => {
                         match_date,
                         match_time, 
                         table_number,
-                        referee:referee_id(firstname, lastname),
+                        referee_1:referee1_id(firstname, lastname),
+                        referee_2:referee2_id(firstname, lastname),
                         result
                     `
           )
