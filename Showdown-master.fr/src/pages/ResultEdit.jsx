@@ -26,7 +26,8 @@ const ResultEdit = () => {
             match_date,
             match_time, 
             table_number,
-            referee_id,
+            referee1_id,
+            referee2_id,
             result
             `
           )
